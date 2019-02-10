@@ -1,0 +1,30 @@
+Using this code you will be able to turn on / off a LED via Bluetooth !
+
+For this Arduino Project we will use the LED CONTROLLER from the application.
+
+Let's begin explaining the code :
+
+-In the setup function there is pinMode(6,OUTPUT);
+ If you want to change the pin that controls the LED you just have to change the " 6 " from above with the pin you want to use , and also 
+ you will need to change the " 6 " at case '1' and case '2'.
+-In the loop function , if your Arduino device is able to receive any data though bluetooth it will try to read it and 
+ then add it to the variable "data";
+ 
+ NOTE1: data is a char , so if you use an application that will send more than one character such as "abcd" it will 
+ read just the first one and try to do something !
+ 
+ NOTE2: In the application provided ( Arduino Bluetooth Controller/Remote ) the data that you are sending is character , 
+ so you are completly covered for what I said at NOTE1.
+
+ In case '1' you will turn on the LED by setting the voltage to HIGH to your desired pin . In case you changed the pin from
+ pinMode(6,OUTPUT) , you will need to write here " digitalWrite(pin_you_have_assigned,HIGH);
+ 
+ In case '2' is almost the same thing like in case '1' but here you turn off the led by setting the voltage to low to your desired pin.
+
+ If you want to change the inputs that you are sending to your device you have to do two steps :
+ 1. In the Arduino code in each case change the character between the ' ' , for example , in this code we have case '1' but you want to change it to case 'a' ;
+ 2. After you completed bulding your device as in the file Building_Instructions.jpg , turn on your Arduino device and  tap the scan for devices button in the app , 
+    connect to your device , and choose LED CONTROLLER . Here tap on the Settings button and here you can add the commands for turning on/off your device , 
+    like above , if you changed the first case to case 'a'(for turning on the LED) , in the application after you pressed the Settings button  add in the empty box a .
+   
+ 
