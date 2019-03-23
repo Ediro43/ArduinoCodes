@@ -1,0 +1,39 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h> 
+
+LiquidCrystal_I2C lcd (0x27,2 , 1 ,0 , 4 , 5 ,6 , 7 ,3 , POSITIVE);   // change 0x27 if needed .
+int charNumber = 0;  //number of current displayed characters , must not excede
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println(">> START<<"); 
+lcd.begin(16,2);
+lcd.clear();
+
+
+}
+
+void loop(){
+  
+if(Serial.available() > 0)
+  {
+    char data;
+    data = Serial.read();
+    Serial.write(Serial.read());
+      if(data == '&'){               // if seding the character '&' via Bluetooth the display will be cleared.
+        lcd.clear();
+        charNumber=0;               // if the display is cleared , this means there are no characters , so we set the number of characters to 0.
+      }
+
+      if(charNumber <= 16 && data != '&'){   //routine for adding characters to display.
+      lcd.write(data);                      //command to write on display
+      charNumber++;                         //for each character written we increase the number of existing characters
+      }
+      if(charNumber > 16){                  //if the number of displayed characters will be over 16 (let's say 20 , the 17th character will not be displayed and then 
+         lcd.clear();                       //the lcd will be cleared).
+         charNumber = 0 ;                   //after encountering the 17th character , the dispay will be cleared and there will be displayed the characters from 18 to 20.
+      }
+      
+    
+}
+}
